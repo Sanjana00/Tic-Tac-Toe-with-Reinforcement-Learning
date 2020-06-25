@@ -10,7 +10,7 @@ height = 400
 
 POSITIONS = list(zip([30, width / 3 + 30, width / 3 * 2 + 30] * 3, [30] * 3 + [height / 3 + 30] * 3 + [height / 3 * 2 + 30] * 3))
 
-POS = list(zip([width / 3, width / 3 * 2, width] * 3, [height / 3] * 3 + [height / 3 * 2] * 3 + [height] * 3))
+LIMITS = list(zip([width / 3, width / 3 * 2, width] * 3, [height / 3] * 3 + [height / 3 * 2] * 3 + [height] * 3))
                 
 ROW1 = (0, 1, 2)
 ROW2 = (3, 4, 5)
@@ -113,7 +113,7 @@ def drawXO(pos, board, XO):
 
 def get_square(): 
     x, y = pg.mouse.get_pos() 
-    for idx, limit in enumerate(POS):
+    for idx, limit in enumerate(LIMITS):
         xlim, ylim = limit
         if x < xlim and y < ylim:
             return idx
