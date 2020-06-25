@@ -48,7 +48,7 @@ LINETHROUGH = {ROW1 : pg.draw.line(screen, (250, 0, 0), (0, height / 6), (width,
                  LDIAG: pg.draw.line(screen, (250, 70, 70), (50, 50), (350, 350), 4),
                  RDIAG: pg.draw.line(screen, (250, 70, 70), (350, 50), (50, 350), 4)}
 
-initiating_window = pg.image.load("bg.png") 
+initiating_window = pg.image.load("bg1.png") 
 x_img = pg.image.load("cross.jpg") 
 y_img = pg.image.load("nought.png") 
 
