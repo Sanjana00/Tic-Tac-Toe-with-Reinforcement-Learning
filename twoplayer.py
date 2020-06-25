@@ -29,6 +29,9 @@ white = (255, 255, 255)
 
 line_color = (0, 0, 0) 
 
+CROSS = 'x'
+NOUGHT = 'o'
+
 pg.init() 
 
 fps = 30
@@ -56,7 +59,7 @@ initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
 x_img = pg.transform.scale(x_img, (80, 80)) 
 o_img = pg.transform.scale(y_img, (80, 80)) 
 
-ICON = {'x' : x_img, 'o' : o_img}
+ICON = {CROSS : x_img, NOUGHT : o_img}
 
 def game_initiating_window(): 
     
@@ -129,11 +132,11 @@ def user_click(board, XO, winner, draw):
     return board, XO, winner, draw
         
 def flip(XO):
-    return 'x' if XO == 'o' else 'o'
+    return CROSS if XO == NOUGHT else NOUGHT
 
 #driver code
 
-XO = 'x'
+XO = CROSS
 
 winner = None
 
@@ -153,7 +156,7 @@ while(True):
             board, XO, winner, draw = user_click(board, XO, winner, draw) 
             if winner or draw:
                 time.sleep(2)
-                XO, winner, draw, board = 'x', None, False, [None] * 9 
+                XO, winner, draw, board = CROSS, None, False, [None] * 9 
                 game_initiating_window()
                 draw_status(draw, winner, XO)
     pg.display.update() 
