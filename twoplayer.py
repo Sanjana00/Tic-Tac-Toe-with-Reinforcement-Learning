@@ -119,7 +119,7 @@ def get_square():
             return idx
     return None
 
-def user_click(board, XO):
+def user_click(board, XO, winner, draw):
     pos = get_square()
     if pos is not None and board[pos] is None: 
         board, XO = drawXO(pos, board, XO) 
@@ -150,7 +150,7 @@ while(True):
             pg.quit() 
             sys.exit() 
         elif event.type is MOUSEBUTTONDOWN: 
-            board, XO, winner, draw = user_click(board, XO) 
+            board, XO, winner, draw = user_click(board, XO, winner, draw) 
             if winner or draw:
                 time.sleep(2)
                 XO, winner, draw, board = 'x', None, False, [None] * 9 
