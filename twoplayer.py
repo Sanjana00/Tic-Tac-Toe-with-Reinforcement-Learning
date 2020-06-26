@@ -43,12 +43,12 @@ screen = pg.display.set_mode((width, height + 100), 0, 32)
 pg.display.set_caption("Tic Tac Toe") 
 
 LINEARGS = {
-    ROW1 : (screen, (250, 0, 0), (0, height / 6), (width, height / 6), 4),
-    ROW2 : (screen, (250, 0, 0), (0, height / 2), (width, height / 2), 4),
-    ROW3 : (screen, (250, 0, 0), (0, height / 6 * 5), (width, height / 6 * 5), 4),
-    COL1 : (screen, (250, 0, 0), (width / 6, 0), (width / 6, height), 4),
-    COL2 : (screen, (250, 0, 0), (width / 2, 0), (width / 2, height), 4),
-    COL3 : (screen, (250, 0, 0), (width / 6 * 5, 0), (width / 6 * 5, height), 4),
+    ROW1 : (screen, (250, 0, 0), (20, height / 6), (width - 20, height / 6), 4),
+    ROW2 : (screen, (250, 0, 0), (20, height / 2), (width - 20, height / 2), 4),
+    ROW3 : (screen, (250, 0, 0), (20, height / 6 * 5), (width - 20, height / 6 * 5), 4),
+    COL1 : (screen, (250, 0, 0), (width / 6, 20), (width / 6, height - 20), 4),
+    COL2 : (screen, (250, 0, 0), (width / 2, 20), (width / 2, height - 20), 4),
+    COL3 : (screen, (250, 0, 0), (width / 6 * 5, 20), (width / 6 * 5, height - 20), 4),
     LDIAG: (screen, (250, 70, 70), (50, 50), (350, 350), 4),
     RDIAG: (screen, (250, 70, 70), (350, 50), (50, 350), 4)
     }
