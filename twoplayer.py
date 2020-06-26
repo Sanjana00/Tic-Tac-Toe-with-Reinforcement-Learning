@@ -42,14 +42,16 @@ screen = pg.display.set_mode((width, height + 100), 0, 32)
 
 pg.display.set_caption("Tic Tac Toe") 
 
-LINETHROUGH = {ROW1 : pg.draw.line(screen, (250, 0, 0), (0, height / 6), (width, height / 6), 4),
-                 ROW2 : pg.draw.line(screen, (250, 0, 0), (0, height / 2), (width, height / 2), 4),
-                 ROW3 : pg.draw.line(screen, (250, 0, 0), (0, height / 6 * 5), (width, height / 6 * 5), 4),
-                 COL1 : pg.draw.line(screen, (250, 0, 0), (width / 6, 0), (width / 6, height), 4),
-                 COL2 : pg.draw.line(screen, (250, 0, 0), (width / 2, 0), (width / 2, height), 4),
-                 COL3 : pg.draw.line(screen, (250, 0, 0), (width / 6 * 5, 0), (width / 6 * 5, height), 4),
-                 LDIAG: pg.draw.line(screen, (250, 70, 70), (50, 50), (350, 350), 4),
-                 RDIAG: pg.draw.line(screen, (250, 70, 70), (350, 50), (50, 350), 4)}
+LINEARGS = {
+    ROW1 : (screen, (250, 0, 0), (0, height / 6), (width, height / 6), 4),
+    ROW2 : (screen, (250, 0, 0), (0, height / 2), (width, height / 2), 4),
+    ROW3 : (screen, (250, 0, 0), (0, height / 6 * 5), (width, height / 6 * 5), 4),
+    COL1 : (screen, (250, 0, 0), (width / 6, 0), (width / 6, height), 4),
+    COL2 : (screen, (250, 0, 0), (width / 2, 0), (width / 2, height), 4),
+    COL3 : (screen, (250, 0, 0), (width / 6 * 5, 0), (width / 6 * 5, height), 4),
+    LDIAG: (screen, (250, 70, 70), (50, 50), (350, 350), 4),
+    RDIAG: (screen, (250, 70, 70), (350, 50), (50, 350), 4)
+    }
 
 initiating_window = pg.image.load("bg1.png") 
 x_img = pg.image.load("cross.jpg") 
@@ -80,7 +82,7 @@ def check_win(board):
         if board[line[0]] is None:
             continue
         if all(board[play] == board[line[0]] for play in line[1:]):
-            LINETHROUGH[line]
+            pg.draw.line(*LINEARGS[line])
             return board[line[0]]
     return None
 
