@@ -10,7 +10,7 @@ height = 400
 
 POSITIONS = list(zip([30, width / 3 + 30, width / 3 * 2 + 30] * 3, [30] * 3 + [height / 3 + 30] * 3 + [height / 3 * 2 + 30] * 3))
 
-POS = list(zip([width / 3, width / 3 * 2, width] * 3, [height / 3] * 3 + [height / 3 * 2] * 3 + [height] * 3))
+LIMITS = list(zip([width / 3, width / 3 * 2, width] * 3, [height / 3] * 3 + [height / 3 * 2] * 3 + [height] * 3))
                 
 ROW1 = (0, 1, 2)
 ROW2 = (3, 4, 5)
@@ -29,6 +29,9 @@ white = (255, 255, 255)
 
 line_color = (0, 0, 0) 
 
+CROSS = 'x'
+NOUGHT = 'o'
+
 pg.init() 
 
 fps = 30
@@ -39,16 +42,18 @@ screen = pg.display.set_mode((width, height + 100), 0, 32)
 
 pg.display.set_caption("Tic Tac Toe") 
 
-LINETHROUGH = {ROW1 : pg.draw.line(screen, (250, 0, 0), (0, height / 6), (width, height / 6), 4),
-                 ROW2 : pg.draw.line(screen, (250, 0, 0), (0, height / 2), (width, height / 2), 4),
-                 ROW3 : pg.draw.line(screen, (250, 0, 0), (0, height / 6 * 5), (width, height / 6 * 5), 4),
-                 COL1 : pg.draw.line(screen, (250, 0, 0), (width / 6, 0), (width / 6, height), 4),
-                 COL2 : pg.draw.line(screen, (250, 0, 0), (width / 2, 0), (width / 2, height), 4),
-                 COL3 : pg.draw.line(screen, (250, 0, 0), (width / 6 * 5, 0), (width / 6 * 5, height), 4),
-                 LDIAG: pg.draw.line(screen, (250, 70, 70), (50, 50), (350, 350), 4),
-                 RDIAG: pg.draw.line(screen, (250, 70, 70), (350, 50), (50, 350), 4)}
+LINEARGS = {
+    ROW1 : (screen, (250, 0, 0), (20, height / 6), (width - 20, height / 6), 4),
+    ROW2 : (screen, (250, 0, 0), (20, height / 2), (width - 20, height / 2), 4),
+    ROW3 : (screen, (250, 0, 0), (20, height / 6 * 5), (width - 20, height / 6 * 5), 4),
+    COL1 : (screen, (250, 0, 0), (width / 6, 20), (width / 6, height - 20), 4),
+    COL2 : (screen, (250, 0, 0), (width / 2, 20), (width / 2, height - 20), 4),
+    COL3 : (screen, (250, 0, 0), (width / 6 * 5, 20), (width / 6 * 5, height - 20), 4),
+    LDIAG: (screen, (250, 70, 70), (50, 50), (350, 350), 4),
+    RDIAG: (screen, (250, 70, 70), (350, 50), (50, 350), 4)
+    }
 
-initiating_window = pg.image.load("bg.png") 
+initiating_window = pg.image.load("bg1.png") 
 x_img = pg.image.load("cross.jpg") 
 y_img = pg.image.load("nought.png") 
 
@@ -56,7 +61,7 @@ initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
 x_img = pg.transform.scale(x_img, (80, 80)) 
 o_img = pg.transform.scale(y_img, (80, 80)) 
 
-ICON = {'x' : x_img, 'o' : o_img}
+ICON = {CROSS : x_img, NOUGHT : o_img}
 
 def game_initiating_window(): 
     
@@ -77,7 +82,7 @@ def check_win(board):
         if board[line[0]] is None:
             continue
         if all(board[play] == board[line[0]] for play in line[1:]):
-            LINETHROUGH[line]
+            pg.draw.line(*LINEARGS[line])
             return board[line[0]]
     return None
 
@@ -90,7 +95,7 @@ def draw_status(draw, winner, XO):
         message = XO.upper() + "'s Turn"
     else: 
         message = winner.upper() + " won !"
-    if draw: 
+    if draw and winner is None: 
         message = "Game Draw !"
 
     font = pg.font.Font(None, 30) 
@@ -113,13 +118,13 @@ def drawXO(pos, board, XO):
 
 def get_square(): 
     x, y = pg.mouse.get_pos() 
-    for idx, limit in enumerate(POS):
+    for idx, limit in enumerate(LIMITS):
         xlim, ylim = limit
         if x < xlim and y < ylim:
             return idx
     return None
 
-def user_click(board, XO):
+def user_click(board, XO, winner, draw):
     pos = get_square()
     if pos is not None and board[pos] is None: 
         board, XO = drawXO(pos, board, XO) 
@@ -129,11 +134,11 @@ def user_click(board, XO):
     return board, XO, winner, draw
         
 def flip(XO):
-    return 'x' if XO == 'o' else 'o'
+    return CROSS if XO == NOUGHT else NOUGHT
 
 #driver code
 
-XO = 'x'
+XO = CROSS
 
 winner = None
 
@@ -150,10 +155,10 @@ while(True):
             pg.quit() 
             sys.exit() 
         elif event.type is MOUSEBUTTONDOWN: 
-            board, XO, winner, draw = user_click(board, XO) 
+            board, XO, winner, draw = user_click(board, XO, winner, draw) 
             if winner or draw:
                 time.sleep(2)
-                XO, winner, draw, board = 'x', None, False, [None] * 9 
+                XO, winner, draw, board = CROSS, None, False, [None] * 9 
                 game_initiating_window()
                 draw_status(draw, winner, XO)
     pg.display.update() 
