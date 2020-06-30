@@ -87,7 +87,7 @@ def check_win(board):
 def check_draw(board):
     return all(play is not None for play in board)
 
-def draw_status(draw, winner, XO): 
+def game_status(draw, winner, XO): 
     
     if winner is None: 
         message = XO.upper() + "'s Turn"
@@ -128,7 +128,7 @@ def user_click(board, XO, winner, draw):
         board, XO = drawXO(pos, board, XO) 
         winner = check_win(board)
         draw = check_draw(board)
-        draw_status(draw, winner, XO)
+        game_status(draw, winner, XO)
     return board, XO, winner, draw
         
 def flip(XO):
@@ -142,7 +142,7 @@ def rand_sel(board, XO, winner, draw):
     board, XO = drawXO(pos, board, XO)
     winner = check_win(board)
     draw = check_win(board)
-    draw_status(draw, winner, XO)
+    game_status(draw, winner, XO)
     return board, XO, winner, draw
 
 #driver code
@@ -156,7 +156,7 @@ draw = False
 board = [None] * 9
 
 game_initiating_window() 
-draw_status(draw, winner, XO)
+game_status(draw, winner, XO)
 
 while(True): 
     for event in pg.event.get(): 
@@ -172,7 +172,7 @@ while(True):
                 time.sleep(2)
                 XO, winner, draw, board = CROSS, None, False, [None] * 9 
                 game_initiating_window()
-                draw_status(draw, winner, XO)
+                game_status(draw, winner, XO)
     pg.display.update() 
     CLOCK.tick(fps) 
 
