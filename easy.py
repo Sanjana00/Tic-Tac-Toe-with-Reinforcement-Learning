@@ -4,12 +4,17 @@ import sys
 import time 
 from pygame.locals import *
 
+#   INITIALIZING DIMENSIONS OF THE GAME SCREEN
+
 width, height = 400, 400
 
+#   LIST CONTAINING COORDINATES OF THE CENTRE OF EACH SQUARE ON THE GRID
 POSITIONS = list(zip([30, width / 3 + 30, width / 3 * 2 + 30] * 3, [30] * 3 + [height / 3 + 30] * 3 + [height / 3 * 2 + 30] * 3))
 
+#   LIST CONTAINING THE COORDINATES OF THE EXTREMITIES (BOTTOM RIGHT CORNER) OF EACH SQUARE ON THE GRID
 LIMITS = list(zip([width / 3, width / 3 * 2, width] * 3, [height / 3] * 3 + [height / 3 * 2] * 3 + [height] * 3))
-                
+
+
 ROW1 = (0, 1, 2)
 ROW2 = (3, 4, 5)
 ROW3 = (6, 7, 8)
@@ -40,6 +45,8 @@ screen = pg.display.set_mode((width, height + 100), 0, 32)
 
 pg.display.set_caption("Tic Tac Toe") 
 
+#   DICTIONARY STORING LINES IN THE GRID AS KEYS AND PARAMETERS REQUIRED TO DRAW THE RED LINE THROUGH THEM ON WINNING
+
 LINEARGS = {
     ROW1 : (screen, (250, 0, 0), (20, height / 6), (width - 20, height / 6), 4),
     ROW2 : (screen, (250, 0, 0), (20, height / 2), (width - 20, height / 2), 4),
@@ -62,7 +69,7 @@ o_img = pg.transform.scale(y_img, (80, 80))
 ICON = {CROSS : x_img, NOUGHT : o_img}
 
 def game_initiating_window(): 
-    
+    ''' This function initialises the game window with the background image for 3 seconds before showing an empty grid for a new game '''
     screen.blit(initiating_window, (0, 0)) 
     
     pg.display.update() 
@@ -76,6 +83,7 @@ def game_initiating_window():
     pg.draw.line(screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2), 7) 
 
 def check_win(board):
+    ''' This functions checks if a winner is determined at the given state of the game '''
     for line in CHECK:
         if board[line[0]] is None:
             continue
@@ -85,10 +93,11 @@ def check_win(board):
     return None
 
 def check_draw(board):
+    ''' This functions checks if there are no available valid moves for any player (all squares occupied). This is the draw condition if there is no winner '''
     return all(play is not None for play in board)
 
 def game_status(draw, winner, XO): 
-    
+    ''' This function prints the status of the game currently by deciding and displaying the message at the bottom of the grid on the game screen '''
     if winner is None: 
         message = XO.upper() + "'s Turn"
     else: 
@@ -107,6 +116,7 @@ def game_status(draw, winner, XO):
     
     
 def drawXO(pos, board, XO): 
+    ''' This function assigns the value at a particular position on the board and displays the appropriate icon at the required position on the game screen '''
     posx, posy = POSITIONS[pos]
     board[pos] = XO 
     
@@ -115,6 +125,7 @@ def drawXO(pos, board, XO):
     return board, flip(XO)
 
 def get_square(): 
+    ''' This function returns the index of the board depending on where the user has clicked on the game screen '''
     x, y = pg.mouse.get_pos() 
     for idx, limit in enumerate(LIMITS):
         xlim, ylim = limit
@@ -123,6 +134,7 @@ def get_square():
     return None
 
 def user_click(board, XO, winner, draw):
+    ''' This function updates the board and game status on user click on the game screen '''
     pos = get_square()
     if pos is not None and board[pos] is None: 
         board, XO = drawXO(pos, board, XO) 
@@ -132,12 +144,15 @@ def user_click(board, XO, winner, draw):
     return board, XO, winner, draw
         
 def flip(XO):
+    ''' This function allows the switching of move control between the two players '''
     return CROSS if XO == NOUGHT else NOUGHT
 
 def available(board):
+    ''' This function returns a list of valid moves on the board '''
     return [idx for idx, item in enumerate(board) if item is None]
 
 def rand_sel(board, XO, winner, draw):
+    ''' This function allows the computer to make a random move '''
     pos = random.sample(available(board), 1)[0]
     board, XO = drawXO(pos, board, XO)
     winner = check_win(board)
@@ -145,7 +160,10 @@ def rand_sel(board, XO, winner, draw):
     game_status(draw, winner, XO)
     return board, XO, winner, draw
 
-#driver code
+
+#==================================================================================
+#   DRIVER CODE
+#==================================================================================
 
 XO = CROSS
 
