@@ -29,7 +29,7 @@ RDIAG = (2, 4, 6)
 CHECK = [ROW1, ROW2, ROW3, COL1, COL2, COL3, LDIAG, RDIAG]
                
 white = (255, 255, 255) 
-
+red = (255, 0, 0)
 line_color = (0, 0, 0) 
 
 CROSS = 'x'
@@ -46,16 +46,16 @@ screen = pg.display.set_mode((width, height + 100), 0, 32)
 pg.display.set_caption("Tic Tac Toe") 
 
 #   DICTIONARY STORING LINES IN THE GRID AS KEYS AND PARAMETERS REQUIRED TO DRAW THE RED LINE THROUGH THEM ON WINNING
-
+LINEWIDTH = 4
 LINEARGS = {
-    ROW1 : (screen, (250, 0, 0), (20, height / 6), (width - 20, height / 6), 4),
-    ROW2 : (screen, (250, 0, 0), (20, height / 2), (width - 20, height / 2), 4),
-    ROW3 : (screen, (250, 0, 0), (20, height / 6 * 5), (width - 20, height / 6 * 5), 4),
-    COL1 : (screen, (250, 0, 0), (width / 6, 20), (width / 6, height - 20), 4),
-    COL2 : (screen, (250, 0, 0), (width / 2, 20), (width / 2, height - 20), 4),
-    COL3 : (screen, (250, 0, 0), (width / 6 * 5, 20), (width / 6 * 5, height - 20), 4),
-    LDIAG: (screen, (250, 70, 70), (50, 50), (350, 350), 4),
-    RDIAG: (screen, (250, 70, 70), (350, 50), (50, 350), 4)
+    ROW1 : (screen, red, (20, height / 6), (width - 20, height / 6),LINEWIDTH),
+    ROW2 : (screen, red, (20, height / 2), (width - 20, height / 2), LINEWIDTH),
+    ROW3 : (screen, red, (20, height / 6 * 5), (width - 20, height / 6 * 5), LINEWIDTH),
+    COL1 : (screen, red, (width / 6, 20), (width / 6, height - 20), LINEWIDTH),
+    COL2 : (screen, red, (width / 2, 20), (width / 2, height - 20), LINEWIDTH),
+    COL3 : (screen, red, (width / 6 * 5, 20), (width / 6 * 5, height - 20), LINEWIDTH),
+    LDIAG: (screen, red, (50, 50), (350, 350), LINEWIDTH),
+    RDIAG: (screen, red, (350, 50), (50, 350), LINEWIDTH)
     }
 
 initiating_window = pg.image.load("bg1.png") 
@@ -176,7 +176,7 @@ board = [None] * 9
 game_initiating_window() 
 game_status(draw, winner, XO)
 
-while(True): 
+while True: 
     for event in pg.event.get(): 
         if event.type == QUIT: 
             pg.quit() 
