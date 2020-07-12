@@ -75,7 +75,7 @@ State,Value
 ----XO---,3.0
 ----XO--X,3.0
 ----XO-OX,5.0
-----XO-X-,0.0
+----XO-X-,3.0
 ----XO-XO,3.0
 ----XOO-X,5.0
 ----XOOX-,5.0
@@ -154,7 +154,7 @@ State,Value
 ---OXOX--,5.0
 ---OXOX-X,3.0
 ---OXOXOX,3.0
----OXOXXO,1.0
+---OXOXXO,3.0
 ---OXX---,0.0
 ---OXX--O,0.0
 ---OXX-O-,3.0
@@ -409,6 +409,7 @@ State,Value
 --OX-X---,0.0
 --OX-X--O,5.0
 --OX-X-O-,5.0
+--OX-X-OX,-2.0
 --OX-X-XO,-2.0
 --OX-XO--,5.0
 --OX-XO-X,-4.0
@@ -429,7 +430,7 @@ State,Value
 --OXO-XXO,-1.0
 --OXOO-XX,3.0
 --OXOOX-X,3.0
---OXOOXX-,0.0
+--OXOOXX-,3.0
 --OXOOXXX,3.0
 --OXOX---,0.0
 --OXOX--X,-4.0
@@ -576,7 +577,7 @@ State,Value
 --X-XXOO-,-4.0
 --X-XXOOO,-4.0
 --XO-----,3.0
---XO----X,0.0
+--XO----X,3.0
 --XO---OX,5.0
 --XO---X-,1.0
 --XO---XO,3.0
@@ -796,7 +797,7 @@ State,Value
 -O--X-X--,2.0
 -O--X-X-O,5.0
 -O--X-XO-,5.0
--O--X-XOX,0.0
+-O--X-XOX,1.0
 -O--X-XXO,0.0
 -O--XO--X,5.0
 -O--XO-X-,3.0
@@ -829,7 +830,7 @@ State,Value
 -O-O-X-X-,3.0
 -O-O-X-XX,3.0
 -O-O-XOXX,3.0
--O-O-XX--,1.0
+-O-O-XX--,3.0
 -O-O-XX-X,3.0
 -O-O-XXOX,3.0
 -O-O-XXX-,0.0
@@ -863,7 +864,7 @@ State,Value
 -O-OXXX--,0.0
 -O-OXXX-O,3.0
 -O-OXXXO-,3.0
--O-OXXXOX,0.0
+-O-OXXXOX,1.0
 -O-OXXXXO,0.0
 -O-X-----,2.0
 -O-X----X,0.0
@@ -1119,13 +1120,13 @@ State,Value
 -OX--O-XX,0.0
 -OX--OOXX,0.0
 -OX--OX--,5.0
--OX--OX-X,0.0
+-OX--OX-X,3.0
 -OX--OXOX,3.0
 -OX--OXX-,3.0
 -OX--OXXO,3.0
 -OX--X---,0.0
 -OX--X--O,0.0
--OX--X-O-,1.0
+-OX--X-O-,5.0
 -OX--X-OX,5.0
 -OX--X-XO,0.0
 -OX--XO--,5.0
@@ -1246,6 +1247,7 @@ State,Value
 -OXOX-X--,5.0
 -OXOX-X-O,4.0
 -OXOX-XO-,4.0
+-OXOX-XOX,3.0
 -OXOX-XXO,3.0
 -OXOXO--X,3.0
 -OXOXO-X-,3.0
@@ -1584,7 +1586,7 @@ State,Value
 -X-XO--O-,0.0
 -X-XO--OX,0.0
 -X-XO--XO,-4.0
--X-XO-O--,0.0
+-X-XO-O--,-1.0
 -X-XO-O-X,-4.0
 -X-XO-OOX,1.0
 -X-XO-OX-,-4.0
@@ -1596,7 +1598,7 @@ State,Value
 -X-XOO--X,0.0
 -X-XOO-OX,1.0
 -X-XOO-X-,-2.0
--X-XOO-XO,0.0
+-X-XOO-XO,-2.0
 -X-XOOO-X,0.0
 -X-XOOOX-,0.0
 -X-XOOOXX,-2.0
@@ -1641,7 +1643,7 @@ State,Value
 -XO---XOX,0.0
 -XO---XXO,-4.0
 -XO--O--X,3.0
--XO--O-X-,1.0
+-XO--O-X-,3.0
 -XO--O-XX,3.0
 -XO--OOXX,3.0
 -XO--OX--,1.0
@@ -1980,7 +1982,7 @@ State,Value
 -XXO--XO-,1.0
 -XXO--XOO,3.0
 -XXO-O---,3.0
--XXO-O--X,-1.0
+-XXO-O--X,-4.0
 -XXO-O-OX,1.0
 -XXO-O-X-,-4.0
 -XXO-O-XO,3.0
@@ -2062,7 +2064,7 @@ State,Value
 -XXOXXO-O,-2.0
 -XXOXXOO-,-2.0
 -XXOXXOOO,-2.0
--XXX---OO,-2.0
+-XXX---OO,-4.0
 -XXX--O-O,-4.0
 -XXX--OO-,-4.0
 -XXX--OOO,-4.0
@@ -2189,9 +2191,9 @@ O--O-X--X,5.0
 O--O-X-X-,1.0
 O--O-X-XX,-1.0
 O--O-XOXX,2.0
-O--O-XX--,1.0
-O--O-XX-X,0.0
-O--O-XXOX,1.0
+O--O-XX--,3.0
+O--O-XX-X,1.0
+O--O-XXOX,3.0
 O--O-XXX-,1.0
 O--O-XXXO,1.0
 O--OO-XXX,4.0
@@ -2209,6 +2211,7 @@ O--OX-XOX,3.0
 O--OX-XXO,3.0
 O--OXO-XX,3.0
 O--OXOX-X,3.0
+O--OXOXXX,3.0
 O--OXX---,2.0
 O--OXX--X,0.0
 O--OXX-OX,3.0
@@ -2220,6 +2223,7 @@ O--OXXOXX,-1.0
 O--OXXX--,0.0
 O--OXXX-O,3.0
 O--OXXXO-,3.0
+O--OXXXOX,0.0
 O--OXXXXO,1.0
 O--X-----,0.0
 O--X----X,0.0
@@ -2318,7 +2322,7 @@ O--XXXOXO,3.0
 O--XXXXOO,3.0
 O-O----XX,5.0
 O-O---X-X,5.0
-O-O---XX-,4.0
+O-O---XX-,5.0
 O-O---XXX,5.0
 O-O--OXXX,4.0
 O-O--X--X,0.0
@@ -2570,7 +2574,7 @@ O-XO-X-XO,0.0
 O-XO-XO-X,4.0
 O-XO-XOX-,2.0
 O-XO-XOXX,3.0
-O-XO-XX--,0.0
+O-XO-XX--,3.0
 O-XO-XX-O,3.0
 O-XO-XXO-,3.0
 O-XO-XXOX,3.0
@@ -2729,10 +2733,10 @@ OO---X--X,5.0
 OO---X-X-,1.0
 OO---X-XX,0.0
 OO---XOXX,3.0
-OO---XX--,0.0
+OO---XX--,3.0
 OO---XX-X,0.0
 OO---XXOX,3.0
-OO---XXX-,-1.0
+OO---XXX-,0.0
 OO---XXXO,0.0
 OO--O-XXX,4.0
 OO--OX-XX,3.0
@@ -2745,7 +2749,7 @@ OO--X--XX,0.0
 OO--X-OXX,0.0
 OO--X-X--,5.0
 OO--X-X-X,-1.0
-OO--X-XOX,1.0
+OO--X-XOX,3.0
 OO--X-XX-,2.0
 OO--X-XXO,3.0
 OO--XO-XX,3.0
@@ -2787,7 +2791,7 @@ OO-X---X-,1.0
 OO-X---XX,0.0
 OO-X--OXX,0.0
 OO-X--X--,2.0
-OO-X--X-X,-1.0
+OO-X--X-X,0.0
 OO-X--XOX,0.0
 OO-X--XX-,0.0
 OO-X--XXO,0.0
@@ -2948,7 +2952,7 @@ OOX--X-XO,1.0
 OOX--XO-X,4.0
 OOX--XOX-,3.0
 OOX--XOXX,3.0
-OOX--XX--,0.0
+OOX--XX--,3.0
 OOX--XX-O,3.0
 OOX--XXO-,3.0
 OOX--XXOX,3.0
@@ -3155,7 +3159,7 @@ OX---O--X,3.0
 OX---O-X-,5.0
 OX---O-XX,3.0
 OX---OOXX,3.0
-OX---OX--,1.0
+OX---OX--,0.0
 OX---OX-X,0.0
 OX---OXOX,0.0
 OX---OXX-,-1.0
@@ -3229,7 +3233,7 @@ OX--XX--O,1.0
 OX--XX-O-,0.0
 OX--XX-OO,1.0
 OX--XXO--,0.0
-OX--XXO-O,1.0
+OX--XXO-O,3.0
 OX--XXOO-,0.0
 OX--XXOOX,0.0
 OX--XXOXO,3.0
@@ -3339,7 +3343,7 @@ OX-X-X-O-,-1.0
 OX-X-X-OO,-1.0
 OX-X-XO--,-1.0
 OX-X-XO-O,-1.0
-OX-X-XOO-,0.0
+OX-X-XOO-,1.0
 OX-X-XOOX,1.0
 OX-X-XOXO,-2.0
 OX-X-XXOO,-2.0
@@ -3612,7 +3616,7 @@ OXOXXOXXO,-1.0
 OXOXXX--O,3.0
 OXOXXX-O-,3.0
 OXOXXX-OO,2.0
-OXOXXXO--,2.0
+OXOXXXO--,3.0
 OXOXXXO-O,2.0
 OXOXXXOO-,2.0
 OXOXXXOOX,1.0
@@ -4479,7 +4483,7 @@ X-X-X-O-O,-4.0
 X-X-X-OO-,-4.0
 X-X-X-OOO,-4.0
 X-X-XO--O,0.0
-X-X-XO-O-,0.0
+X-X-XO-O-,3.0
 X-X-XO-OO,3.0
 X-X-XOO--,0.0
 X-X-XOO-O,0.0
@@ -4689,7 +4693,7 @@ XO--OXXXO,0.0
 XO--X----,0.0
 XO--X---O,0.0
 XO--X--O-,1.0
-XO--X--OX,2.0
+XO--X--OX,5.0
 XO--X--XO,0.0
 XO--X-O--,5.0
 XO--X-O-X,5.0
@@ -4954,7 +4958,7 @@ XOO-XOX-X,3.0
 XOO-XOXOX,2.0
 XOO-XOXXO,-2.0
 XOO-XX--O,3.0
-XOO-XX-O-,1.0
+XOO-XX-O-,3.0
 XOO-XX-OX,3.0
 XOO-XX-XO,0.0
 XOO-XXO--,3.0
@@ -5372,7 +5376,7 @@ XX-----OO,0.0
 XX----O--,-1.0
 XX----O-O,-1.0
 XX----OO-,1.0
-XX----OOX,1.0
+XX----OOX,3.0
 XX----OXO,-1.0
 XX----XOO,0.0
 XX---O---,-1.0
@@ -5410,6 +5414,7 @@ XX--OO--X,-4.0
 XX--OO-OX,1.0
 XX--OO-X-,-4.0
 XX--OOO-X,1.0
+XX--OOOX-,-1.0
 XX--OOOXX,-2.0
 XX--OOX--,-4.0
 XX--OOX-O,-1.0
@@ -5442,7 +5447,7 @@ XX-O-----,0.0
 XX-O----O,2.0
 XX-O---O-,5.0
 XX-O---OX,0.0
-XX-O---XO,0.0
+XX-O---XO,-1.0
 XX-O--O--,5.0
 XX-O--O-X,-1.0
 XX-O--OOX,3.0
@@ -5455,7 +5460,7 @@ XX-O-O---,3.0
 XX-O-O--X,-1.0
 XX-O-O-OX,3.0
 XX-O-O-X-,-4.0
-XX-O-O-XO,1.0
+XX-O-O-XO,-1.0
 XX-O-OOX-,3.0
 XX-O-OOXX,0.0
 XX-O-OX--,-4.0
@@ -5549,7 +5554,7 @@ XX-X-XOOO,-3.0
 XX-XO---O,-1.0
 XX-XO--O-,-1.0
 XX-XO--OO,3.0
-XX-XO-O--,-1.0
+XX-XO-O--,-4.0
 XX-XO-O-O,1.0
 XX-XO-OO-,-1.0
 XX-XO-OOX,-2.0
@@ -5564,6 +5569,7 @@ XX-XOOO--,3.0
 XX-XOOO-X,-2.0
 XX-XOOOOX,1.0
 XX-XOOOX-,-2.0
+XX-XOOOXO,1.0
 XX-XOOX-O,-1.0
 XX-XOOXO-,3.0
 XX-XOOXOO,2.0
