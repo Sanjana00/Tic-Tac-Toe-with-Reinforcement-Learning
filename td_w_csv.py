@@ -6,10 +6,13 @@ import csv
 import time 
 from pygame.locals import *
 
+#   INITIALIZING DIMENSIONS OF THE GAME SCREEN
 width, height = 400, 400
 
+#   LIST CONTAINING COORDINATES OF THE CENTRE OF EACH SQUARE ON THE GRID
 POSITIONS = list(zip([30, width / 3 + 30, width / 3 * 2 + 30] * 3, [30] * 3 + [height / 3 + 30] * 3 + [height / 3 * 2 + 30] * 3))
 
+#   LIST CONTAINING THE COORDINATES OF THE EXTREMITIES (BOTTOM RIGHT CORNER) OF EACH SQUARE ON THE GRID
 LIMITS = list(zip([width / 3, width / 3 * 2, width] * 3, [height / 3] * 3 + [height / 3 * 2] * 3 + [height] * 3))
                 
 ROW1 = (0, 1, 2)
@@ -32,6 +35,7 @@ line_color = (0, 0, 0)
 CROSS = 'X'
 NOUGHT = 'O'
 
+# INITIALIZNG PYGAME
 pg.init() 
 
 fps = 30
@@ -148,13 +152,6 @@ class TicTacToe():
     def valid_moves(self):
         return [idx for idx, item in enumerate(self.board) if item == '-']
 
-    def rand_sel(self):
-        pos = random.choice(self.valid_moves())
-        self.make_move(pos)
-        self.check_win()
-        self.check_draw()
-        self.game_status()
-
 
 class Agent():
     def __init__(self, game_class, epsilon = 0.1, alpha = 0.5, value_player = CROSS):
@@ -164,8 +161,6 @@ class Agent():
         self.alpha = alpha
         self.value_player = value_player
 
-    def state_value(self, game_state):
-        return self.V.get(game_state, 0.0)
 
     def find_pos(self, game, state):
         for idx, item in enumerate(state):
@@ -182,14 +177,6 @@ class Agent():
         _, move = self.learn_select_move(game)
         while move:
             move = self.learn_from_move(game, move)
-
-    def form_states(self, game, positions):
-        possible_states = []
-        for pos in positions:
-            new_state = game.board[:]
-            new_state[pos] = game.player
-            possible_states.append(''.join(new_state))
-        return possible_states
 
     def learn_from_move(self, game, move):
         game.make_move(self.find_pos(game, move))
@@ -218,20 +205,6 @@ class Agent():
 
         return best_move, selected_move
 
-    def play_select_move(self, game):
-        allowed_state_values = self.__state_values(self.form_states(game, game.valid_moves()))
-        if game.player == self.value_player:
-            return self.__argmax_V(allowed_state_values)
-        return self.__argmin_V(allowed_state_values)
-
-    def demo_game(self):
-        game = self.NewGame()
-        while not game.check_draw():
-            move = self.play_select_move(game)
-            game.make_move(self.find_pos(game, move))
-        if game.winner:
-            return game.winner
-        return '-'
 
     def interactive_game(self, agent_player = NOUGHT):
         game = self.NewGame()
@@ -262,6 +235,56 @@ class Agent():
         for k in self.V.keys():
             self.V[k] = round(self.V[k], 1)
 
+
+    def __random_V(self, state_values):
+        return random.choice(list(state_values.keys()))
+
+    def __reward(self, game):
+        if game.winner == self.value_player:
+            return 1.0
+        elif game.winner:
+            return -1.0
+        else:
+            return 0.0
+
+    def __request_human_move(self, game):
+        game.user_click()
+
+    def choose_state(self, state_values, ismax):
+        values = state_values.values()
+        val = max(values) if ismax else min(values)
+        chosen_state = random.choice([state for state, v in state_values.items() if v == val])
+        return chosen_state
+    
+    def state_value(self, game_state):
+        return self.V.get(game_state, 0.0)
+    
+    def __state_values(self, game_states):
+        return dict((state, self.state_value(state)) for state in game_states)
+    
+    def form_states(self, game, positions):
+        possible_states = []
+        for pos in positions:
+            new_state = game.board[:]
+            new_state[pos] = game.player
+            possible_states.append(''.join(new_state))
+        return possible_states
+
+    def play_select_move(self, game):
+        allowed_state_values = self.__state_values(self.form_states(game, game.valid_moves()))
+        if game.player == self.value_player:
+            return self.choose_state(allowed_state_values, True)
+        return self.choose_state(allowed_state_values, False)
+    
+    def demo_game(self):
+        game = self.NewGame()
+        while not game.check_draw():
+            move = self.play_select_move(game)
+            game.make_move(self.find_pos(game, move))
+        if game.winner:
+            return game.winner
+        return '-'
+
     def save_v_table(self):
         with open('state_values.csv', 'w', newline = '') as csvfile:
             writer = csv.writer(csvfile)
@@ -280,35 +303,6 @@ class Agent():
                         continue
                     self.V[row[0]] = float(row[1])
 
-    def __state_values(self, game_states):
-        return dict((state, self.state_value(state)) for state in game_states)
-
-    def __argmax_V(self, state_values):
-        values = state_values.values()
-        max_V = max(values)
-        chosen_state = random.choice([state for state, v in state_values.items() if v == max_V])
-        return chosen_state
-
-    def __argmin_V(self, state_values):
-        values = state_values.values()
-        min_V = min(values)
-        chosen_state = random.choice([state for state, v in state_values.items() if v == min_V])
-        return chosen_state
-
-    def __random_V(self, state_values):
-        return random.choice(list(state_values.keys()))
-
-    def __reward(self, game):
-        if game.winner == self.value_player:
-            return 1.0
-        elif game.winner:
-            return -1.0
-        else:
-            return 0.0
-
-    def __request_human_move(self, game):
-        game.user_click()
-
 def demo_game_stats(agent):
     results = [agent.demo_game() for i in range(10000)]
     game_stats = {k: results.count(k) / 100 for k in [CROSS, NOUGHT, '-']}
@@ -319,7 +313,7 @@ agent = Agent(TicTacToe, epsilon = 0.1, alpha = 1.0)
 
 agent.retrieve_v_table()
 
-train = input("Train the agent [y/n]?: ")
+train = input("Train the agent [Y/n]?: ")
 
 if train.upper() == 'Y':
     print('Before learning:')
