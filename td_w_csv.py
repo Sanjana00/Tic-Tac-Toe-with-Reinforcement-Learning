@@ -161,13 +161,6 @@ class Agent():
         self.alpha = alpha
         self.value_player = value_player
 
-
-    def find_pos(self, game, state):
-        for idx, item in enumerate(state):
-            if item != game.board[idx]:
-                return idx
-        return None
-
     def learn_game(self, num_episodes = 1000):
         for episode in range(num_episodes):
             self.learn_from_episode()
@@ -178,6 +171,22 @@ class Agent():
         while move:
             move = self.learn_from_move(game, move)
 
+    def learn_select_move(self, game):
+        allowed_state_values = self.__state_values(self.form_states(game, game.valid_moves()))
+        if game.player == self.value_player:
+            best_move = self.choose_state(allowed_state_values, True)
+        else:
+            best_move = self.choose_state(allowed_state_values, False)
+
+        selected_move = best_move
+        if random.random() < self.epsilon:
+            selected_move = self.__random_V(allowed_state_values)
+
+        return best_move, selected_move
+    
+    def __random_V(self, state_values):
+        return random.choice(list(state_values.keys()))
+    
     def learn_from_move(self, game, move):
         game.make_move(self.find_pos(game, move))
         r = self.__reward(game)
@@ -192,19 +201,14 @@ class Agent():
         self.V[move] = current_state_value + self.alpha * (td_target - current_state_value)
         return selected_next_move
 
-    def learn_select_move(self, game):
-        allowed_state_values = self.__state_values(self.form_states(game, game.valid_moves()))
-        if game.player == self.value_player:
-            best_move = self.__argmax_V(allowed_state_values)
+
+    def __reward(self, game):
+        if game.winner == self.value_player:
+            return 1.0
+        elif game.winner:
+            return -1.0
         else:
-            best_move = self.__argmin_V(allowed_state_values)
-
-        selected_move = best_move
-        if random.random() < self.epsilon:
-            selected_move = self.__random_V(allowed_state_values)
-
-        return best_move, selected_move
-
+            return 0.0
 
     def interactive_game(self, agent_player = NOUGHT):
         game = self.NewGame()
@@ -231,28 +235,15 @@ class Agent():
             pg.display.update()
             CLOCK.tick(fps)
 
-    def round_V(self):
-        for k in self.V.keys():
-            self.V[k] = round(self.V[k], 1)
-
-
-    def __random_V(self, state_values):
-        return random.choice(list(state_values.keys()))
-
-    def __reward(self, game):
-        if game.winner == self.value_player:
-            return 1.0
-        elif game.winner:
-            return -1.0
-        else:
-            return 0.0
-
-    def __request_human_move(self, game):
-        game.user_click()
-
-    def choose_state(self, state_values, ismax):
+    def find_pos(self, game, state):
+        for idx, item in enumerate(state):
+            if item != game.board[idx]:
+                return idx
+        return None
+    
+    def choose_state(self, state_values, is_agent_player):
         values = state_values.values()
-        val = max(values) if ismax else min(values)
+        val = max(values) if is_agent_player else min(values)
         chosen_state = random.choice([state for state, v in state_values.items() if v == val])
         return chosen_state
     
@@ -285,6 +276,10 @@ class Agent():
             return game.winner
         return '-'
 
+    def round_V(self):
+        for k in self.V.keys():
+            self.V[k] = round(self.V[k], 1)
+    
     def save_v_table(self):
         with open('state_values.csv', 'w', newline = '') as csvfile:
             writer = csv.writer(csvfile)
