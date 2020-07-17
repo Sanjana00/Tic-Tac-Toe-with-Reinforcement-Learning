@@ -46,6 +46,8 @@ screen = pg.display.set_mode((width, height + 100), 0, 32)
 
 pg.display.set_caption("Tic Tac Toe") 
 
+# DICTIONARY STORING LINES IN THE GRID AS KEYS AND PARAMETERS REQUIRED TO DRAW THE RED LINE THROUGH THEM ON WINNING
+
 LINEARGS = {
     ROW1 : (screen, (250, 0, 0), (20, height / 6), (width - 20, height / 6), 4),
     ROW2 : (screen, (250, 0, 0), (20, height / 2), (width - 20, height / 2), 4),
@@ -76,7 +78,9 @@ class TicTacToe():
         self.board = ['-'] * 9
 
     def game_initiating_window(self): 
-    
+        ''' This function initialises the game window with the background image for 3 seconds
+        before showing an empty grid for a new game '''
+  
         screen.blit(initiating_window, (0, 0)) 
     
         pg.display.update() 
@@ -90,6 +94,8 @@ class TicTacToe():
         pg.draw.line(screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2), 7) 
 
     def check_win(self):
+        ''' This functions checks if a winner is determined at the given state of the game '''
+
         for line in CHECK:
             if self.board[line[0]] == '-':
                 continue
@@ -98,11 +104,16 @@ class TicTacToe():
                 self.winner = self.board[line[0]]
 
     def check_draw(self):
+        ''' This functions checks if there are no available valid moves for any player (all squares occupied). 
+        This is the draw condition if there is no winner '''
+
         self.draw = all(play != '-' for play in self.board)
         return self.draw
 
     def game_status(self): 
-    
+        ''' This function prints the status of the game currently by deciding 
+        and displaying the message at the bottom of the grid on the game screen '''
+ 
         if self.winner is None: 
             message = self.player + "'s Turn"
         else: 
@@ -120,7 +131,10 @@ class TicTacToe():
         pg.display.update() 
     
     
-    def make_move(self, pos): 
+    def make_move(self, pos):
+        ''' This function assigns the value at a particular position on the board and 
+        displays the appropriate icon at the required position on the game screen '''
+
         posx, posy = POSITIONS[pos]
         self.board[pos] = self.player 
     
@@ -130,7 +144,10 @@ class TicTacToe():
         self.check_win()
         self.check_draw()
 
-    def get_square(self): 
+    def get_square(self):
+        ''' This function returns the index of the board 
+        depending on where the user has clicked on the game screen '''
+        
         x, y = pg.mouse.get_pos() 
         for idx, limit in enumerate(LIMITS):
             xlim, ylim = limit
@@ -139,17 +156,23 @@ class TicTacToe():
         return None
 
     def user_click(self):
+        ''' This function updates the board and game status on user click on the game screen '''
+
         pos = self.get_square()
         if pos is not None and self.board[pos] == '-': 
             self.make_move(pos) 
         
     def flip(self):
+        ''' This function allows the switching of move con    trol between the two players '''
+
         if self.player == NOUGHT:
             self.player = CROSS
         else:
             self.player = NOUGHT
 
     def valid_moves(self):
+        ''' This function returns a list of valid moves on the board '''
+
         return [idx for idx, item in enumerate(self.board) if item == '-']
 
 
