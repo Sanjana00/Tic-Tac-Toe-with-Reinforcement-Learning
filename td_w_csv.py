@@ -78,7 +78,7 @@ class TicTacToe():
         self.board = ['-'] * 9
 
     def game_initiating_window(self): 
-        ''' This function initialises the game window with the background image for 3 seconds
+        ''' This function initialises the game window with the background image for 1.5 seconds
         before showing an empty grid for a new game '''
   
         screen.blit(initiating_window, (0, 0)) 
@@ -163,7 +163,7 @@ class TicTacToe():
             self.make_move(pos) 
         
     def flip(self):
-        ''' This function allows the switching of move con    trol between the two players '''
+        ''' This function allows the switching of move control between the two players '''
 
         if self.player == NOUGHT:
             self.player = CROSS
