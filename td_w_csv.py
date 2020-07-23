@@ -364,6 +364,9 @@ if train.upper() == 'Y':
     agent.round_V()
     agent.save_v_table()
 
+icon = input("X or O: ")
+if icon.upper() == 'O':
+    agent.interactive_game(agent_player = CROSS)
 agent.interactive_game()
 
 '''
