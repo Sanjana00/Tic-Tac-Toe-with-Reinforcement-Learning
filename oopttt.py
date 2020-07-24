@@ -69,6 +69,53 @@ class TicTacToe():
         self.draw = draw
         self.board = board
 
+    def drawtext(self, text, color, surface, x, y):
+        font = pg.font.SysFont(None, 30)
+        textobj = font.render(text, 1, color)
+        textrect = textobj.get_rect()
+        textrect.topleft = (x, y)
+        surface.blit(textobj, textrect)
+
+    def button(self):
+        click = False  
+        screen.fill(white)
+        self.drawtext("menu", (200, 200, 200), screen, 20, 20)
+        mx, my = pg.mouse.get_pos()
+
+        button1 = pg.Rect(50, 100, 200, 50)
+        button2 = pg.Rect(50, 200, 200, 50)
+
+        if button1.collidepoint((mx, my)):
+            if click:
+                #self.XO = NOUGHT
+                self.game_initiating_window()
+
+        if button1.collidepoint((mx, my)):
+            if click:
+                #self.XO = CROSS
+                self.game_initiating_window()
+        
+        pg.draw.rect(screen, (255, 0, 0), button1)
+        pg.draw.rect(screen, (255, 0, 0), button2)
+        
+        click = False
+        for event in pg.event.get():
+            if event.type == QUIT:
+                pg.quit()
+                sys.exit()
+
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pg.quit()
+                    sys.exit()
+    
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        pg.display.update()
+        CLOCK.tick(fps)
+
     def game_initiating_window(self): 
     
         screen.blit(initiating_window, (0, 0)) 
@@ -77,11 +124,16 @@ class TicTacToe():
         time.sleep(3)                    
         screen.fill(white) 
 
+        time.sleep(2)
         pg.draw.line(screen, line_color, (width / 3, 0), (width / 3, height), 7) 
         pg.draw.line(screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7) 
 
         pg.draw.line(screen, line_color, (0, height / 3), (width, height / 3), 7) 
         pg.draw.line(screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2), 7) 
+
+        
+        game.game_status()
+
 
     def check_win(self):
         for line in CHECK:
@@ -159,7 +211,6 @@ game = TicTacToe(CROSS, None, False, [None] * 9)
 
 game.game_initiating_window() 
 game.game_status()
-
 while(True): 
     for event in pg.event.get(): 
         if event.type == QUIT: 
@@ -177,4 +228,3 @@ while(True):
                 game.game_status()
     pg.display.update() 
     CLOCK.tick(fps) 
-
