@@ -1,5 +1,6 @@
 import random
 import pygame as pg 
+import pygame_menu
 import sys 
 import os
 import csv
@@ -326,6 +327,11 @@ def demo_game_stats(agent):
     game_stats = {k: results.count(k) / 100 for k in [CROSS, NOUGHT, '-']}
     print('     percentage results: {}'.format(game_stats))
 
+def play_CROSS():
+    agent.interactive_game()
+
+def play_NOUGHT():
+    agent.interactive_game(agent_player = CROSS)
 
 agent = Agent(TicTacToe, epsilon = 0.1, alpha = 1.0)
 
@@ -364,10 +370,10 @@ if train.upper() == 'Y':
     agent.round_V()
     agent.save_v_table()
 
-icon = input("X or O: ")
-if icon.upper() == 'O':
-    agent.interactive_game(agent_player = CROSS)
-agent.interactive_game()
+menu = pygame_menu.Menu(height + 99, width - 1, 'Menu')
+menu.add_button('X', play_CROSS)
+menu.add_button('O', play_NOUGHT)
+menu.mainloop(screen)
 
 '''
 #driver code
