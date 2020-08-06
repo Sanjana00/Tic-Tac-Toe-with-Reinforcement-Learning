@@ -370,7 +370,7 @@ if train.upper() == 'Y':
     agent.round_V()
     agent.save_v_table()
 
-menu = pygame_menu.Menu(height + 99, width - 1, 'Menu')
+menu = pygame_menu.Menu(height + 99, width - 1, 'Choose Icon')
 menu.add_button('X', play_CROSS)
 menu.add_button('O', play_NOUGHT)
 menu.mainloop(screen)
