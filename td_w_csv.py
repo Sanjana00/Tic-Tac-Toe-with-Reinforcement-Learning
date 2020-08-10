@@ -372,6 +372,14 @@ if train.upper() == 'Y':
     print('After 100000 learning games:')
     demo_game_stats(agent)
 
+    agent.learn_game(400000)
+    print('After 500000 learning games:')
+    demo_game_stats(agent)
+
+    agent.learn_game(500000)
+    print('After 1000000 learning games:')
+    demo_game_stats(agent)
+
     agent.round_V()
     agent.save_v_table()
 
