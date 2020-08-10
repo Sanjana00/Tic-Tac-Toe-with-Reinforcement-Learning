@@ -123,7 +123,7 @@ class TicTacToe():
         if self.draw and self.winner is None: 
             message = "Game Draw !"
 
-        font = pg.font.Font(None, 30) 
+        font = pg.font.Font(pg.font.get_default_font(), 30) 
     
         text = font.render(message, 1, (255, 255, 255)) 
 
@@ -366,6 +366,10 @@ if train.upper() == 'Y':
 
     agent.learn_game(20000)
     print('After 50000 learning games:')
+    demo_game_stats(agent)
+
+    agent.learn_game(50000)
+    print('After 100000 learning games:')
     demo_game_stats(agent)
 
     agent.round_V()
