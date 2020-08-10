@@ -30,8 +30,9 @@ RDIAG = (2, 4, 6)
 CHECK = [ROW1, ROW2, ROW3, COL1, COL2, COL3, LDIAG, RDIAG]
                
 white = (255, 255, 255) 
+black = (0, 0, 0)
 
-line_color = (0, 0, 0) 
+line_color = black 
 
 CROSS = 'X'
 NOUGHT = 'O'
@@ -61,7 +62,7 @@ LINEARGS = {
     }
 
 initiating_window = pg.image.load("bg1.png") 
-x_img = pg.image.load("cross.jpg") 
+x_img = pg.image.load("cross.png") 
 y_img = pg.image.load("nought.png") 
 
 initiating_window = pg.transform.scale(initiating_window, (width, height + 100)) 
@@ -370,7 +371,15 @@ if train.upper() == 'Y':
     agent.round_V()
     agent.save_v_table()
 
-menu = pygame_menu.Menu(height + 99, width - 1, 'Choose Icon')
+#mytheme = pygame_menu.themes.THEME_BLUE.copy()
+#mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE
+#mytheme.font = pygame_menu.font.FONT_OPEN_SANS
+#mytheme.cursor_selection_color((0, 0, 0))
+#mytheme.title_font_color = black
+#mytheme.title_shadow = False
+mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_shadow = False, title_background_color=(4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (255, 239, 213, 100) )
+menu = pygame_menu.Menu(height + 99, width - 1, 'Choose Icon',  theme = mytheme)
+
 menu.add_button('X', play_CROSS)
 menu.add_button('O', play_NOUGHT)
 menu.mainloop(screen)
