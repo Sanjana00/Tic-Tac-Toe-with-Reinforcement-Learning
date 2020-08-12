@@ -6,3 +6,7 @@
 We are planning to implement the grid game by iteratively updating **Q value** function, which is the estimating value of (state, action) pair.
 
 **Language**: Python and Python modules (pygame etc)
+
+**Dependancies**: Need to install pygame and pygame-menu Python modules in order to run the code.
+
+**Usage**: Clone the repository and run the td_w_csv.py file to play with the agent interactively. To first train the agent, enter 'Y' on prompt, else enter 'n'. 
