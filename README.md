@@ -7,6 +7,6 @@ We are planning to implement the grid game by iteratively updating **Q value** f
 
 **Language**: Python and Python modules (pygame etc)
 
-**Dependancies**: Need to install pygame and pygame-menu Python modules in order to run the code.
+**Dependencies**: Need to install pygame and pygame-menu Python modules in order to run the code.
 
-**Usage**: Clone the repository and run the td_w_csv.py file to play with the agent interactively. To first train the agent, enter 'Y' on prompt, else enter 'n'. 
+**Usage**: Clone the repository and run the tictactoe.py file to play with the agent interactively. To first train the agent, enter 'Y' on prompt, else enter 'n'. 
