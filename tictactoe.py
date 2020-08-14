@@ -71,6 +71,8 @@ o_img = pg.transform.scale(y_img, (80, 80))
 
 ICON = {CROSS : x_img, NOUGHT : o_img}
 
+filename = 'state_values.csv'
+
 class TicTacToe():
 
     def __init__(self):
@@ -306,7 +308,7 @@ class Agent():
             self.V[k] = round(self.V[k], 1)
     
     def save_v_table(self):
-        with open('state_values.csv', 'w', newline = '') as csvfile:
+        with open(filename, 'w', newline = '') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(['State', 'Value'])
             all_states = list(self.V.keys())
@@ -315,8 +317,8 @@ class Agent():
                 writer.writerow([state, self.V[state]])
 
     def retrieve_v_table(self):
-        if os.path.isfile('state_values.csv'):
-            with open('state_values.csv', 'r') as csvfile:
+        if os.path.isfile(filename):
+            with open(filename, 'r') as csvfile:
                 reader = csv.reader(csvfile)
                 for row in reader:
                     if row == ['State', 'Value']:
