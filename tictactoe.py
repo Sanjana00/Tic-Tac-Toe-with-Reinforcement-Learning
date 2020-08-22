@@ -113,7 +113,11 @@ class TicTacToe():
         This is the draw condition if there is no winner '''
 
         self.draw = all(play != EMPTY for play in self.board)
-        return self.draw
+
+    def playable(self):
+        self.check_win()
+        self.check_draw()
+        return not self.draw and not self.winner
 
     def game_status(self): 
         ''' This function prints the status of the game currently by deciding 
@@ -221,7 +225,7 @@ class Agent():
         td_target = r
         next_state_value = 0.0
         selected_next_move = None
-        if not game.check_draw():
+        if game.playable():
             best_next_move, selected_next_move = self.learn_select_move(game)
             next_state_value = self.state_value(best_next_move)
         current_state_value = self.state_value(move)
@@ -297,7 +301,7 @@ class Agent():
     
     def demo_game(self):
         game = self.NewGame()
-        while not game.check_draw():
+        while game.playable():
             move = self.play_select_move(game)
             game.make_move(self.find_pos(game, move))
         if game.winner:
@@ -369,18 +373,6 @@ if train.upper() == 'Y':
 
     agent.learn_game(20000)
     print('After 50000 learning games:')
-    demo_game_stats(agent)
-
-    agent.learn_game(50000)
-    print('After 100000 learning games:')
-    demo_game_stats(agent)
-
-    agent.learn_game(400000)
-    print('After 500000 learning games:')
-    demo_game_stats(agent)
-
-    agent.learn_game(500000)
-    print('After 1000000 learning games:')
     demo_game_stats(agent)
 
     agent.round_V()
