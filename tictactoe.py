@@ -36,6 +36,7 @@ line_color = black
 
 CROSS = 'X'
 NOUGHT = 'O'
+EMPTY = '-'
 
 # INITIALIZNG PYGAME
 pg.init() 
@@ -79,7 +80,7 @@ class TicTacToe():
         self.player = CROSS
         self.winner = None
         self.draw = False
-        self.board = ['-'] * 9
+        self.board = [EMPTY] * 9
 
     def game_initiating_window(self): 
         ''' This function initialises the game window with the background image for 1.5 seconds
@@ -101,7 +102,7 @@ class TicTacToe():
         ''' This functions checks if a winner is determined at the given state of the game '''
 
         for line in CHECK:
-            if self.board[line[0]] == '-':
+            if self.board[line[0]] == EMPTY:
                 continue
             if all(self.board[play] == self.board[line[0]] for play in line[1:]):
                 pg.draw.line(*LINEARGS[line])
@@ -111,7 +112,7 @@ class TicTacToe():
         ''' This functions checks if there are no available valid moves for any player (all squares occupied). 
         This is the draw condition if there is no winner '''
 
-        self.draw = all(play != '-' for play in self.board)
+        self.draw = all(play != EMPTY for play in self.board)
         return self.draw
 
     def game_status(self): 
@@ -163,7 +164,7 @@ class TicTacToe():
         ''' This function updates the board and game status on user click on the game screen '''
 
         pos = self.get_square()
-        if pos is not None and self.board[pos] == '-': 
+        if pos is not None and self.board[pos] == EMPTY: 
             self.make_move(pos) 
         
     def flip(self):
@@ -177,7 +178,7 @@ class TicTacToe():
     def valid_moves(self):
         ''' This function returns a list of valid moves on the board '''
 
-        return [idx for idx, item in enumerate(self.board) if item == '-']
+        return [idx for idx, item in enumerate(self.board) if item == EMPTY]
 
 
 class Agent():
