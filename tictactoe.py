@@ -31,6 +31,7 @@ CHECK = [ROW1, ROW2, ROW3, COL1, COL2, COL3, LDIAG, RDIAG]
                
 white = (255, 255, 255) 
 black = (0, 0, 0)
+red = (255, 0, 0)
 
 line_color = black 
 
@@ -52,14 +53,14 @@ pg.display.set_caption("Tic Tac Toe")
 # DICTIONARY STORING LINES IN THE GRID AS KEYS AND PARAMETERS REQUIRED TO DRAW THE RED LINE THROUGH THEM ON WINNING
 
 LINEARGS = {
-    ROW1 : (screen, (250, 0, 0), (20, height / 6), (width - 20, height / 6), 4),
-    ROW2 : (screen, (250, 0, 0), (20, height / 2), (width - 20, height / 2), 4),
-    ROW3 : (screen, (250, 0, 0), (20, height / 6 * 5), (width - 20, height / 6 * 5), 4),
-    COL1 : (screen, (250, 0, 0), (width / 6, 20), (width / 6, height - 20), 4),
-    COL2 : (screen, (250, 0, 0), (width / 2, 20), (width / 2, height - 20), 4),
-    COL3 : (screen, (250, 0, 0), (width / 6 * 5, 20), (width / 6 * 5, height - 20), 4),
-    LDIAG: (screen, (250, 0, 0), (50, 50), (350, 350), 4),
-    RDIAG: (screen, (250, 0, 0), (350, 50), (50, 350), 4)
+    ROW1 : (screen, red, (20, height / 6), (width - 20, height / 6), 4),
+    ROW2 : (screen, red, (20, height / 2), (width - 20, height / 2), 4),
+    ROW3 : (screen, red, (20, height / 6 * 5), (width - 20, height / 6 * 5), 4),
+    COL1 : (screen, red, (width / 6, 20), (width / 6, height - 20), 4),
+    COL2 : (screen, red, (width / 2, 20), (width / 2, height - 20), 4),
+    COL3 : (screen, red, (width / 6 * 5, 20), (width / 6 * 5, height - 20), 4),
+    LDIAG: (screen, red, (50, 50), (350, 350), 4),
+    RDIAG: (screen, red, (350, 50), (50, 350), 4)
     }
 
 initiating_window = pg.image.load("bg1.png") 
