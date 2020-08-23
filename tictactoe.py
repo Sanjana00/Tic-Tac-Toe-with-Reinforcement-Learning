@@ -384,36 +384,10 @@ if train.upper() == 'Y':
 #mytheme.cursor_selection_color((0, 0, 0))
 #mytheme.title_font_color = black
 #mytheme.title_shadow = False
-mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_shadow = False, title_background_color=(4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (255, 239, 213, 100) )
+mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_shadow = False, title_background_color=(4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (0, 60, 255, 100) )
 menu = pygame_menu.Menu(height + 99, width - 1, 'Choose Icon',  theme = mytheme)
 
-menu.add_button('X', play_CROSS)
-menu.add_button('O', play_NOUGHT)
+menu.add_button(CROSS, play_CROSS)
+menu.add_button(NOUGHT, play_NOUGHT)
 menu.mainloop(screen)
 
-'''
-#driver code
-
-game = TicTacToe()
-
-game.game_initiating_window() 
-game.game_status()
-
-while True: 
-    for event in pg.event.get(): 
-        if event.type == QUIT: 
-            pg.quit() 
-            sys.exit() 
-        elif event.type is MOUSEBUTTONDOWN: 
-            game.user_click() 
-            if game.player == NOUGHT and not game.winner and not game.draw:
-                time.sleep(0.5)
-                game.rand_sel()
-            if game.winner or game.draw:
-                time.sleep(2)
-                game = TicTacToe()
-                game.game_initiating_window()
-                game.game_status()
-    pg.display.update() 
-    CLOCK.tick(fps) 
-'''
