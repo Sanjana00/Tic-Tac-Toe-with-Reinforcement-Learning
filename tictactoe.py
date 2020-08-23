@@ -247,7 +247,8 @@ class Agent():
         game = self.NewGame()
         game.game_initiating_window()
         game.game_status()
-        while True:
+        end = False
+        while not end:
             for event in pg.event.get():
                 if event.type == QUIT:
                     pg.quit()
@@ -261,10 +262,12 @@ class Agent():
                     game.user_click()
                     game.game_status()
                 if game.winner or game.draw:
-                    time.sleep(2)
-                    game = self.NewGame()
-                    game.game_initiating_window()
-                    game.game_status()
+                    time.sleep(1.5)
+                    end = True
+                    break
+                    #game = self.NewGame()
+                    #game.game_initiating_window()
+                    #game.game_status()
             pg.display.update()
             CLOCK.tick(fps)
 
@@ -387,12 +390,13 @@ if train.upper() == 'Y':
 
 agent.epsilon = 0.0
 
-mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_background_color = (4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (0, 60, 255, 100) )
+while True:
+    mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_background_color = (4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (0, 60, 255, 100) )
 
-menu = pygame_menu.Menu(height + 99, width - 1, 'Tic Tac Toe',  theme = mytheme)
+    menu = pygame_menu.Menu(height + 99, width - 1, 'Tic Tac Toe',  theme = mytheme)
 
-menu.add_label("Choose Icon", font_color = white, font_size = 40)
-menu.add_button(CROSS, play_CROSS, font_size = 60, font_color = white, shadow = True)
-menu.add_button(NOUGHT, play_NOUGHT, font_size = 60, font_color = white, shadow = True)
-menu.mainloop(screen)
+    menu.add_label("Choose Icon", font_color = white, font_size = 40)
+    menu.add_button(CROSS, play_CROSS, font_size = 60, font_color = white, shadow = True)
+    menu.add_button(NOUGHT, play_NOUGHT, font_size = 60, font_color = white, shadow = True)
+    menu.mainloop(screen)
 
