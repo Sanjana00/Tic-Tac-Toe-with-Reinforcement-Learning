@@ -342,7 +342,7 @@ def play_CROSS():
 def play_NOUGHT():
     agent.interactive_game(agent_player = CROSS)
 
-agent = Agent(TicTacToe, epsilon = 0.1, alpha = 1.0)
+agent = Agent(TicTacToe, epsilon = 1.0, alpha = 0.5)
 
 agent.retrieve_v_table()
 
@@ -355,25 +355,35 @@ if train.upper() == 'Y':
     agent.learn_game(1000)
     print('After 1000 learning games:')
     demo_game_stats(agent)
+    agent.epsilon -= 0.1
 
     agent.learn_game(4000)
     print('After 5000 learning games:')
     demo_game_stats(agent)
+    agent.epsilon -= 0.2
 
     agent.learn_game(5000)
     print('After 10000 learning games:')
     demo_game_stats(agent)
+    agent.epsilon -= 0.2
 
     agent.learn_game(10000)
     print('After 20000 learning games:')
     demo_game_stats(agent)
+    agent.epsilon -= 0.3
 
     agent.learn_game(10000)
     print('After 30000 learning games:')
     demo_game_stats(agent)
+    agent.epsilon -= 0.1
 
     agent.learn_game(20000)
     print('After 50000 learning games:')
+    demo_game_stats(agent)
+    agent.epsilon -= 0.1
+
+    agent.learn_game(50000)
+    print('After 100000 learning games:')
     demo_game_stats(agent)
 
     agent.round_V()
