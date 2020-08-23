@@ -389,6 +389,8 @@ if train.upper() == 'Y':
     agent.round_V()
     agent.save_v_table()
 
+agent.epsilon = 0.0
+
 mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_background_color = (4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (0, 60, 255, 100) )
 
 menu = pygame_menu.Menu(height + 99, width - 1, 'Tic Tac Toe',  theme = mytheme)
