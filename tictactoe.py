@@ -379,16 +379,12 @@ if train.upper() == 'Y':
     agent.round_V()
     agent.save_v_table()
 
-#mytheme = pygame_menu.themes.THEME_BLUE.copy()
-#mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE
-#mytheme.font = pygame_menu.font.FONT_OPEN_SANS
-#mytheme.cursor_selection_color((0, 0, 0))
-#mytheme.title_font_color = black
-#mytheme.title_shadow = False
-mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_shadow = False, title_background_color=(4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (0, 60, 255, 100) )
-menu = pygame_menu.Menu(height + 99, width - 1, 'Choose Icon',  theme = mytheme)
+mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_background_color = (4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (0, 60, 255, 100) )
 
-menu.add_button(CROSS, play_CROSS)
-menu.add_button(NOUGHT, play_NOUGHT)
+menu = pygame_menu.Menu(height + 99, width - 1, 'Tic Tac Toe',  theme = mytheme)
+
+menu.add_label("Choose Icon", font_color = white, font_size = 40)
+menu.add_button(CROSS, play_CROSS, font_size = 60, font_color = white, shadow = True)
+menu.add_button(NOUGHT, play_NOUGHT, font_size = 60, font_color = white, shadow = True)
 menu.mainloop(screen)
 
