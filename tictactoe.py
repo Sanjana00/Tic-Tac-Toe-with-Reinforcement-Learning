@@ -195,16 +195,19 @@ class Agent():
         self.value_player = value_player
 
     def learn_game(self, num_episodes = 1000):
+        ''' This function trains the agent for the specified number of games '''
         for episode in range(num_episodes):
             self.learn_from_episode()
 
     def learn_from_episode(self):
+        ''' This function trains for one game as the agent '''
         game = self.NewGame()
         _, move = self.learn_select_move(game)
         while move:
             move = self.learn_from_move(game, move)
 
     def learn_select_move(self, game):
+        ''' This function returns the best next move and the selected next move for a given state of the game '''
         allowed_state_values = self.__state_values(self.form_states(game, game.valid_moves()))
         if game.player == self.value_player:
             best_move = self.choose_state(allowed_state_values, True)
@@ -218,9 +221,11 @@ class Agent():
         return best_move, selected_move
     
     def __random_V(self, state_values):
+        ''' This function returns a random next state '''
         return random.choice(list(state_values.keys()))
     
     def learn_from_move(self, game, move):
+        ''' This function modifies the state value of the current state of the game on making the desired move '''
         game.make_move(self.find_pos(game, move))
         r = self.__reward(game)
         td_target = r
@@ -236,6 +241,7 @@ class Agent():
 
 
     def __reward(self, game):
+        ''' This function returns the reward associated with the given state '''
         if game.winner == self.value_player:
             return 1.0
         elif game.winner:
@@ -244,6 +250,7 @@ class Agent():
             return 0.0
 
     def interactive_game(self, agent_player = NOUGHT):
+        ''' This function allows interactive play using the pygame screen '''
         game = self.NewGame()
         game.game_initiating_window()
         game.game_status()
@@ -265,31 +272,33 @@ class Agent():
                     time.sleep(1.5)
                     end = True
                     break
-                    #game = self.NewGame()
-                    #game.game_initiating_window()
-                    #game.game_status()
             pg.display.update()
             CLOCK.tick(fps)
 
     def find_pos(self, game, state):
+        ''' This function finds the move made given the next state and current instance of the game '''
         for idx, item in enumerate(state):
             if item != game.board[idx]:
                 return idx
         return None
     
     def choose_state(self, state_values, is_agent_player):
+        ''' This function returns the state with the best state value for the current player '''
         values = state_values.values()
         val = max(values) if is_agent_player else min(values)
         chosen_state = random.choice([state for state, v in state_values.items() if v == val])
         return chosen_state
     
     def state_value(self, game_state):
+        ''' This function retrieves the state value for given state '''
         return self.V.get(game_state, 0.0)
     
     def __state_values(self, game_states):
+        ''' This function returns a dictionary of allowed states and their state values '''
         return dict((state, self.state_value(state)) for state in game_states)
     
     def form_states(self, game, positions):
+        ''' This function converts move positions to game states '''
         possible_states = []
         for pos in positions:
             new_state = game.board[:]
@@ -298,12 +307,14 @@ class Agent():
         return possible_states
 
     def play_select_move(self, game):
+        ''' This function allows agent to make its move during interactive play or demo games '''
         allowed_state_values = self.__state_values(self.form_states(game, game.valid_moves()))
         if game.player == self.value_player:
             return self.choose_state(allowed_state_values, True)
         return self.choose_state(allowed_state_values, False)
     
     def demo_game(self):
+        ''' This function plays demo games to provide stats '''
         game = self.NewGame()
         while game.playable():
             move = self.play_select_move(game)
@@ -313,10 +324,12 @@ class Agent():
         return '-'
 
     def round_V(self):
+        ''' This function rounds off the state values in the value table '''
         for k in self.V.keys():
             self.V[k] = round(self.V[k], 1)
     
     def save_v_table(self):
+        ''' This function stores states and their state values in a csv file '''
         with open(filename, 'w', newline = '') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(['State', 'Value'])
@@ -326,6 +339,7 @@ class Agent():
                 writer.writerow([state, self.V[state]])
 
     def retrieve_v_table(self):
+        ''' This function retrieves states and state values from a csv file '''
         if os.path.isfile(filename):
             with open(filename, 'r') as csvfile:
                 reader = csv.reader(csvfile)
@@ -335,14 +349,17 @@ class Agent():
                     self.V[row[0]] = float(row[1])
 
 def demo_game_stats(agent):
+    ''' This function plays 10000 demo games and displays game stats '''
     results = [agent.demo_game() for i in range(10000)]
     game_stats = {k: results.count(k) / 100 for k in [CROSS, NOUGHT, '-']}
     print('     percentage results: {}'.format(game_stats))
 
 def play_CROSS():
+    ''' This function allows interactive play where agent plays second '''
     agent.interactive_game()
 
 def play_NOUGHT():
+    ''' This function allows interactive play where agent plays first '''
     agent.interactive_game(agent_player = CROSS)
 
 agent = Agent(TicTacToe, epsilon = 1.0, alpha = 0.4)
@@ -389,12 +406,11 @@ if train.upper() == 'Y':
     agent.save_v_table()
 
 agent.epsilon = 0.0
+mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_background_color = (4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (0, 60, 255, 100) )
+
+menu = pygame_menu.Menu(height + 99, width - 1, 'Tic Tac Toe',  theme = mytheme)
 
 while True:
-    mytheme = pygame_menu.themes.Theme(title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE_TITLE, title_background_color = (4, 47, 126), title_font = pygame_menu.font.FONT_OPEN_SANS_ITALIC, background_color = (0, 60, 255, 100) )
-
-    menu = pygame_menu.Menu(height + 99, width - 1, 'Tic Tac Toe',  theme = mytheme)
-
     menu.add_label("Choose Icon", font_color = white, font_size = 40)
     menu.add_button(CROSS, play_CROSS, font_size = 60, font_color = white, shadow = True)
     menu.add_button(NOUGHT, play_NOUGHT, font_size = 60, font_color = white, shadow = True)
