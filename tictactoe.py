@@ -1,8 +1,9 @@
 import random
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame as pg 
 import pygame_menu
 import sys 
-import os
 import csv
 import time 
 from pygame.locals import *
@@ -109,6 +110,13 @@ class TicTacToe():
                 pg.draw.line(*LINEARGS[line])
                 self.winner = self.board[line[0]]
 
+    def _check_win(self):
+        for line in CHECK:
+            if self.board[line[0]] == EMPTY:
+                continue
+            if all(self.board[play] == self.board[line[0]] for play in line[1:]):
+                self.winner = self.board[line[0]]
+
     def check_draw(self):
         ''' This functions checks if there are no available valid moves for any player (all squares occupied). 
         This is the draw condition if there is no winner '''
@@ -152,6 +160,12 @@ class TicTacToe():
         pg.display.update() 
         self.flip()
         self.check_win()
+        self.check_draw()
+
+    def _make_move(self, pos):
+        self.board[pos] = self.player
+        self.flip()
+        self._check_win()
         self.check_draw()
 
     def get_square(self):
@@ -226,7 +240,7 @@ class Agent():
     
     def learn_from_move(self, game, move):
         ''' This function modifies the state value of the current state of the game on making the desired move '''
-        game.make_move(self.find_pos(game, move))
+        game._make_move(self.find_pos(game, move))
         r = self.__reward(game)
         td_target = r
         next_state_value = 0.0
@@ -318,7 +332,7 @@ class Agent():
         game = self.NewGame()
         while game.playable():
             move = self.play_select_move(game)
-            game.make_move(self.find_pos(game, move))
+            game._make_move(self.find_pos(game, move))
         if game.winner:
             return game.winner
         return '-'
