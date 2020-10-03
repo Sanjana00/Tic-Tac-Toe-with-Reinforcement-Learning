@@ -145,9 +145,9 @@ class TicTacToe():
 
         font = pg.font.Font(pg.font.get_default_font(), 30) 
     
-        text = font.render(message, 1, (255, 255, 255)) 
+        text = font.render(message, 1, white) 
 
-        screen.fill((0, 0, 0), (0, 400, 500, 100)) 
+        screen.fill(black, (0, 400, 500, 100)) 
         text_rect = text.get_rect(center =(width / 2, 500-50)) 
         screen.blit(text, text_rect) 
         pg.display.update() 
