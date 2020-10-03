@@ -15,6 +15,6 @@ We are planning to implement the grid game by iteratively updating **Q value** f
 
 to train the agent before playing
 
-~~~python3 tictactoe.py~~~
+```python3 tictactoe.py```
 
 to play interactively
