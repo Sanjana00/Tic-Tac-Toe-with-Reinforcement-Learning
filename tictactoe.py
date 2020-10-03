@@ -136,12 +136,12 @@ class TicTacToe():
         ''' This function prints the status of the game currently by deciding 
         and displaying the message at the bottom of the grid on the game screen '''
  
-        if self.winner is None: 
-            message = self.player + "'s Turn"
-        else: 
+        if self.winner: 
             message = self.winner + " won !"
-        if self.draw and self.winner is None: 
+        elif self.draw: 
             message = "Game Draw !"
+        else: 
+            message = self.player + "'s Turn"
 
         font = pg.font.Font(pg.font.get_default_font(), 30) 
     
