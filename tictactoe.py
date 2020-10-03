@@ -8,6 +8,10 @@ import csv
 import time 
 from pygame.locals import *
 
+N = 3
+
+SIZE = N ** 2
+
 #   INITIALIZING DIMENSIONS OF THE GAME SCREEN
 width, height = 400, 400
 
@@ -82,7 +86,7 @@ class TicTacToe():
         self.player = CROSS
         self.winner = None
         self.draw = False
-        self.board = [EMPTY] * 9
+        self.board = [EMPTY] * SIZE
 
     def game_initiating_window(self): 
         ''' This function initialises the game window with the background image for 1.5 seconds
