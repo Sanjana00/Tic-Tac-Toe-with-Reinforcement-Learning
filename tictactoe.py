@@ -384,9 +384,7 @@ agent = Agent(TicTacToe, epsilon = 1.0, alpha = 0.4)
 
 agent.retrieve_v_table()
 
-train = input("Train the agent [Y/n]?: ")
-
-if train.upper() == 'Y':
+if len(sys.argv) == 2 and sys.argv[-1] == '-t':
     print('Before learning:')
     demo_game_stats(agent)
 
