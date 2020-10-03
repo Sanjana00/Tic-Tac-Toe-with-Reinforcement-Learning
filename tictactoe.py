@@ -246,7 +246,6 @@ class Agent():
         ''' This function modifies the state value of the current state of the game on making the desired move '''
         game._make_move(self.find_pos(game, move))
         r = self.__reward(game)
-        td_target = r
         next_state_value = 0.0
         selected_next_move = None
         if game.playable():
